@@ -50,70 +50,36 @@ const CountryDetail = props => {
   );
 };
 
-const App = () => {
-  return (
-    <div className="App">
-      <nav className="navbar navbar-dark bg-primary mb-3">
-        {' '}
-        <Link className="navbar-brand" to="/countryDetail/:id">
-          WikiCountries
-        </Link>
-      </nav>
+const CountryList = () => {
+  return countryData.map(country => {
+    return (
       <div className="container">
         <div className="row">
           <div className="col-5" style={{ maxheight: '90vh', overflow: 'scroll' }}>
             <div className="list-group">
-              <Link className="list-group-item list-group-item-action" to="/ABW">
-                <span role="img"> 🇦🇼 Aruba </span>
-              </Link>
-              <Link className="list-group-item list-group-item-action" to="/AFG">
-                <span role="img"> 🇦🇫 Afghanistan </span>
-              </Link>
-              <Link className="list-group-item list-group-item-action" to="/AGO">
-                <span role="img"> 🇦🇴 Angola </span>
-              </Link>
-              <Link className="list-group-item list-group-item-action" to="/AIA">
-                <span role="img"> 🇦🇮 Anguilla </span>
-              </Link>
-              <Link className="list-group-item list-group-item-action" to="/ALA">
-                <span role="img"> 🇦🇽 Åland Islands </span>
-              </Link>
-              <Link className="list-group-item list-group-item-action" to="/ALB">
-                <span role="img"> 🇦🇱 Albania </span>
-              </Link>
-              <Link className="list-group-item list-group-item-action" to="/AND">
-                <span role="img"> 🇦🇩 Andorra </span>
-              </Link>
-              <Link className="list-group-item list-group-item-action" to="/ARE">
-                <span role="img"> 🇦🇪 United Arab Emirates </span>
-              </Link>
-              <Link className="list-group-item list-group-item-action" to="/ARG">
-                <span role="img"> 🇦🇷 Argentina </span>
-              </Link>
-              <Link className="list-group-item list-group-item-action" to="/ARM">
-                <span role="img"> 🇦🇲 Armenia </span>
-              </Link>
-              <Link className="list-group-item list-group-item-action" to="/ASM">
-                <span role="img"> 🇦🇸 American Samoa </span>
-              </Link>
-              <Link className="list-group-item list-group-item-action" to="/ATA">
-                <span role="img"> 🇦🇶 Antarctica </span>
-              </Link>
-              <Link className="list-group-item list-group-item-action" to="/FLK">
-                <span role="img"> 🇫🇰 Falkland Islands </span>
-              </Link>
-              <Link className="list-group-item list-group-item-action active" to="/FRA">
-                <span role="img"> 🇫🇷 France </span>
-              </Link>
-              <Link className="list-group-item list-group-item-action" to="/ZWE">
-                <span role="img"> 🇿🇼 Zimbabwe </span>
+              <Link key={country.cca3} className="list-group-item list-group-item-action" to={country.cca3}>
+                <span role="img">
+                  {country.flag} {country.name.common}
+                </span>
               </Link>
             </div>
           </div>
         </div>
       </div>
-
-      <Route exact path="/:cca3" component={CountryDetail} />
+    );
+  });
+};
+const App = props => {
+  return (
+    <div className="App">
+      <nav className="navbar navbar-dark bg-primary mb-3">
+        <Link className="navbar-brand" to="/countryDetail/:id">
+          WikiCountries
+        </Link>
+      </nav>
+      <CountryList></CountryList>
+      <Route exact path="/countryDetail/:cca3" component={CountryDetail} />
+      <Route exact path="/" component={CountryList} />
     </div>
   );
 };
